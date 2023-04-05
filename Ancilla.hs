@@ -13,8 +13,8 @@ import Data.Complex
 import UPiBase
 import UPiaBase
 import UPichiaBase
-import UPi
-import UPia
+import UPi hiding ((****),(++++))
+import UPia hiding ((****),(++++))
 import UPichia
 
 -- count the number of time cloneQubit appears
@@ -181,12 +181,10 @@ evalAncilla x = evalHeap'' x - evalConsecutive x
 gate :: UPi a b -> UPichia a b
 gate f = FromUPia (FromUPi (UPi.unitp >>> f >>> UPi.unitti))
 
-gate' :: UPi a b -> UPia a b
-gate' f = FromUPi (UPi.unitp >>> f)
-
 -- test examples
-ex1 = gate' UPi.h UPia.**** gate' UPi.h >>> clone
+-- test passed
 ex2 = gate UPi.h >>> measure
+ex3 :: UPichia ('Times Qbit Qbit) ('Times Qbit Qbit)
 ex3 = gate UPi.h UPichia.**** gate UPi.h >>> measure
 ex4 = gate UPi.h UPichia.**** gate UPi.h >>> id UPichia.**** measure >>> measure
 ex5 = gate UPi.h UPichia.**** gate UPi.h >>> measure >>> measure
@@ -196,7 +194,8 @@ ex8 = gate UPi.h UPichia.**** gate UPi.h UPichia.**** gate UPi.h >>> id UPichia.
 ex9 = gate UPi.h UPichia.**** gate UPi.h >>> measure >>> measure >>> measure
 ex10 = gate UPi.h UPichia.**** gate UPi.cnot UPichia.**** gate UPi.h >>> gate UPi.h UPichia.**** measure UPichia.**** gate UPi.h >>> measure UPichia.**** gate UPi.h
 ex11 = gate UPi.h UPichia.**** gate UPi.cnot UPichia.**** gate UPi.h >>> id UPichia.**** (id UPichia.**** id) UPichia.**** measure >>> gate UPi.h UPichia.**** measure UPichia.**** gate UPi.h
+-- test failed
 ex12 = gate UPi.h UPichia.**** gate UPi.h UPichia.**** gate UPi.h >>> id UPichia.**** id UPichia.**** measure >>> id UPichia.**** measure UPichia.**** id >>> measure
-
-
-
+-- can only solve measurement on consecutive layer. not for further layer
+ex13 = gate UPi.h UPichia.**** (gate UPi.h UPichia.**** gate UPi.h) UPichia.**** gate UPi.h >>> gate UPi.h UPichia.**** measure UPichia.**** gate UPi.h
+ex14 = gate UPi.h UPichia.**** gate UPi.h **** gate UPi.h **** (gate UPi.h **** gate UPi.h) >>> gate UPi.h **** measure **** gate UPi.h **** measure
