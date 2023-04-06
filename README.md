@@ -1,12 +1,12 @@
-$Ancilla.hs$ contains functions used to calculate ancilla qubits and a number of test (passed/failed). You can call three functions:
+***Ancilla.hs*** contains functions used to calculate ancilla qubits and a number of test (passed/failed). You can call three functions:
 
-1. evalAncilla : return the number of ancilla
+1. **evalAncilla** : return the number of ancilla
 
-2. noConsecutiveMProgram : return a readable UPichia program that contains no consecutive measurement
+2. **noConsecutiveMProgram** : return a readable UPichia program that contains no consecutive measurement
 
-3. singleQubitMProgram : return a reabable UPichia program that expand a compound measurement (measurement on multiple Qubits) into measurements on single Qubit
+3. **singleQubitMProgram** : return a reabable UPichia program that expand a compound measurement (measurement on multiple Qubits) into measurements on single Qubit
 
-You can call the test examples by running *evalAncilla ex21 (ex1-ex21 are tests for ancilla). You can also new some tests by yourself to test potential drawback. Note that there are a few simple assumptions to make about the input:
+You can call the test examples by running **evalAncilla ex21** (ex1-ex21 are tests for ancilla). You can also new some tests by yourself to test potential drawback. Note that there are a few simple assumptions to make about the input:
 
 1. for every Id operator there is only one corresponding Qubit
 2. the input is in the defined universal set of gates (Hadamard, Pauli x, Pauli y, Pauli z, S, T, Cnot, Toffoli) (This is a combination of many universal set of gates)
