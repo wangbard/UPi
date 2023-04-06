@@ -1,3 +1,5 @@
+To run the code, run **ghci Ancilla.hs**
+
 ***Ancilla.hs*** contains functions used to calculate ancilla qubits and a number of test (passed/failed). You can call three functions:
 
 1. **evalAncilla** : return the number of ancilla
