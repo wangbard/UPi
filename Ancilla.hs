@@ -204,8 +204,8 @@ multiLayerMeasure (x:xs) (y:ys) = singleLayerMeasure x y : multiLayerMeasure xs 
 
 
 -- parse UPi into a matrix of readable format
-toSquare :: UPi a b -> [[READ]]
-toSquare a = multiLayerMeasure (toRow (toRead a)) (multiMeasure (toRead a) (toR (firstLayer (toRead a))))
+toMatrix :: UPi a b -> [[READ]]
+toMatrix a = multiLayerMeasure (toRow (toRead a)) (multiMeasure (toRead a) (toR (firstLayer (toRead a))))
 
 -- in the following, I take the transpose of matrix and operate on columns, where consecutive measurements are exposed easily
 
@@ -221,7 +221,7 @@ singleColumn (M:xs@(ID:_)) =
 singleColumn (x:xs) = x : singleColumn xs
 
 -- parse consecutive measurements in the matrix
--- the input should be the transpose of the toSquare function
+-- the input should be the transpose of the toMatrix function
 multiColumns :: [[READ]] -> [[READ]]
 multiColumns = map singleColumn
 
@@ -235,15 +235,15 @@ countM' x = sum (map countM x)
 
 -- number of ancilla
 evalAncilla :: UPichia a b -> Int
-evalAncilla x = countM' (multiColumns (transpose (toSquare (toReadable' x))))
+evalAncilla x = countM' (multiColumns (transpose (toMatrix (toReadable' x))))
 
 -- return a readable UPichia program that contains no consecutive measurement
 noConsecutiveMProgram :: UPichia a b -> [[READ]]
-noConsecutiveMProgram x = reverse (transpose  (multiColumns (transpose (toSquare (toReadable' x)))))
+noConsecutiveMProgram x = reverse (transpose  (multiColumns (transpose (toMatrix (toReadable' x)))))
 
 -- return a reabable UPichia program that expand a compound measurement (measurement on multiple Qubits) into measurements on single Qubit
 singleQubitMProgram :: UPichia a b -> [[READ]]
-singleQubitMProgram x = reverse (toSquare (toReadable' x))
+singleQubitMProgram x = reverse (toMatrix (toReadable' x))
 
 
 
@@ -289,8 +289,8 @@ ex18 = gate UPi.h **** (gate UPi.cnot **** gate UPi.h) **** gate UPi.toffoli >>>
 ex19 = gate UPi.h **** gate UPi.cnot **** (gate UPi.h **** gate UPi.toffoli) >>>
        id **** measure **** (id **** measure) >>>
        measure **** (id **** id) **** (measure **** (id **** (measure **** id)))
-ex20 = gate UPi.s **** gate UPi.t **** gate UPi.toffoli >>>
+ex20 = gate UPi.px **** gate UPi.py **** gate UPi.toffoli >>>
        gate UPi.cnot **** (measure **** gate UPi.cnot) >>>
        measure
 -- test failed
-ex21 = gate UPi.px **** gate UPi.py **** gate UPi.pz **** gate UPi.s **** gate UPi.t
+ex21 = gate UPi.px **** gate UPi.py **** gate UPi.pz **** gate UPi.s **** gate UPi.t 
