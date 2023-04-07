@@ -17,7 +17,7 @@ import UPi hiding ((****),(++++))
 import UPia hiding ((****),(++++))
 import UPichia
 
--- this module evaluates the number of ancilla used in a UPichia program based on 3 assumptions
+-- this module evaluates the number of ancilla used in a UPichia program based on 3 assumptions on the input
 -- 1. for every Id operator there is only one corresponding Qubit
 -- 3. the input is in quantum circuit format, i.e. in a defined universal set of gates
 -- 4. the first layer should not contain measure operator
@@ -47,17 +47,14 @@ toUPichia (Comp UnitTI f) = f
 toUPichia (Comp SwapT UnitTI) = UPiBase.Discard
 
 
--- a few constand for parsing phase in circuit format
-complexY = -i
-complexZ = (-1) :+ 0
-complexS = i
-complexT = exp(i*(pi/4))
-
 -- parse into circuit format and measure
 toCircuit :: UPi a b -> UPi a b
 toCircuit SwapP = UPiBase.Px
-toCircuit (Comp (SumC (Phase complexY) (Phase i)) SwapP) = UPiBase.Py
-toCircuit (SumC Id (Phase i)) = UPiBase.Pz
+toCircuit (Comp (SumC (Phase a) (Phase b)) SwapP) = UPiBase.Py
+toCircuit (SumC Id (Phase a)) = case a of
+    (-1):+0 -> UPiBase.Pz
+    0:+1    -> UPiBase.PhaseS
+    0.7071067811865476 :+ 0.7071067811865475 -> UPiBase.PhaseT
 toCircuit (SumC Id (Phase complexS)) = UPiBase.PhaseS
 toCircuit (SumC Id (Phase complexT)) = UPiBase.PhaseT
 toCircuit (Comp (Comp (Comp (Comp (Comp (Comp SwapT DistribI) (SumC UnitTI UnitTI)) (SumC Id SwapP)) (SumC UnitT UnitT)) Distrib) SwapT) = UPiBase.Cnot
@@ -245,52 +242,3 @@ noConsecutiveMProgram x = reverse (transpose  (multiColumns (transpose (toMatrix
 singleQubitMProgram :: UPichia a b -> [[READ]]
 singleQubitMProgram x = reverse (toMatrix (toReadable' x))
 
-
-
--- A slightly optimzed version of UPia.arr' . UPi.arr'.
-gate :: UPi a b -> UPichia a b
-gate f = FromUPia (FromUPi (UPi.unitp >>> f >>> UPi.unitti))
-
--- test examples
--- test passed
-ex1 = (id **** gate UPi.h **** id) >>> 
-      (gate UPi.cnot **** id) >>> 
-      (id **** gate UPi.h **** id) >>>
-      UPichia.assoct >>>
-      (id **** gate UPi.cnot) >>> 
-      UPichia.assocti >>>
-      (id **** id **** gate UPi.pz) >>> 
-      (id **** measure **** measure)
-ex2 = gate UPi.h >>> measure
-ex3 = gate UPi.h **** gate UPi.h >>> measure
-ex4 = gate UPi.h **** gate UPi.h >>> id **** measure >>> measure
-ex5 = gate UPi.h **** gate UPi.h >>> measure >>> measure
-ex6 = gate UPi.h **** gate UPi.h >>> id **** measure >>> id **** measure >>> id **** measure
-ex7 = gate UPi.h **** gate UPi.h **** gate UPi.h >>> measure **** id >>> UPichia.assoct >>> id **** measure
-ex8 = gate UPi.h **** gate UPi.h **** gate UPi.h >>> id **** id **** measure >>> gate UPi.h **** measure **** gate UPi.h >>> measure
-ex9 = gate UPi.h **** gate UPi.h >>> measure >>> measure >>> measure
-ex10 = gate UPi.h **** gate UPi.cnot **** gate UPi.h >>> gate UPi.h **** measure **** gate UPi.h >>> measure **** gate UPi.h
-ex11 = gate UPi.h **** gate UPi.cnot **** gate UPi.h >>> id **** (id **** id) **** measure >>> gate UPi.h **** measure **** gate UPi.h
-ex12 = gate UPi.h **** gate UPi.h **** gate UPi.h >>> id **** id **** measure >>> id **** measure **** id >>> measure
-ex13 = gate UPi.h **** (gate UPi.h **** gate UPi.h) **** gate UPi.h >>> gate UPi.h **** measure **** gate UPi.h
-ex14 = gate UPi.h **** gate UPi.h **** gate UPi.h **** (gate UPi.h **** gate UPi.h) >>> gate UPi.h **** measure **** gate UPi.h **** measure
-ex15 = gate UPi.h **** gate UPi.h **** gate UPi.h **** gate UPi.h >>>
-       gate UPi.cnot **** measure **** measure >>>
-       UPichia.assoct **** id >>>
-       measure
-ex16 = gate UPi.h UPichia.**** gate UPi.h **** gate UPi.h >>>
-        measure **** id **** measure >>>
-        measure
-ex17 = gate UPi.h **** (gate UPi.h **** gate UPi.h) **** gate UPi.h **** (gate UPi.h **** gate UPi.h) >>> id **** measure **** id **** measure
-ex18 = gate UPi.h **** (gate UPi.cnot **** gate UPi.h) **** gate UPi.toffoli >>>
-       id **** measure **** measure >>>
-       UPichia.assocti **** id >>>
-       measure **** measure **** (id **** (id **** id))
-ex19 = gate UPi.h **** gate UPi.cnot **** (gate UPi.h **** gate UPi.toffoli) >>>
-       id **** measure **** (id **** measure) >>>
-       measure **** (id **** id) **** (measure **** (id **** (measure **** id)))
-ex20 = gate UPi.px **** gate UPi.py **** gate UPi.toffoli >>>
-       gate UPi.cnot **** (measure **** gate UPi.cnot) >>>
-       measure
--- test failed
-ex21 = gate UPi.px **** gate UPi.py **** gate UPi.pz **** gate UPi.s **** gate UPi.t 

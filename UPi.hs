@@ -69,7 +69,7 @@ assocti = AssocTI
 h :: UPi Qbit Qbit
 h = Hadamard
 
-phase :: (Num a, Show a) => Complex a -> UPi I I
+phase :: (Fractional a, Num a, Eq a, Show a) => Complex a -> UPi I I
 phase = Phase
 
 superposition :: UPi (Plus a a) (Plus a a)

@@ -24,6 +24,8 @@ ex1 = (id **** gate UPi.h **** id) >>>
       (id **** id **** gate UPi.pz) >>> 
       (id **** measure **** measure)
 
+
+-- a hand written parse tree for the following simple UPichia program
 ex3 = gate UPi.h >>> measure 
 
 {-    (Hadamard >>> UnitTI) >>> (A >>> AssocT)

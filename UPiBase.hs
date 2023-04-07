@@ -31,7 +31,7 @@ data UPi :: UPiTy -> UPiTy -> * where
   AssocT :: UPi (Times (Times a b) c) (Times a (Times b c))
   AssocTI :: UPi (Times a (Times b c)) (Times (Times a b) c)
   Hadamard :: UPi (Plus I I) (Plus I I)
-  Phase :: (Num a, Show a) => Complex a -> UPi I I
+  Phase :: (Fractional a, Num a, Eq a, Show a) => Complex a -> UPi I I
   Px :: UPi a b
   Py :: UPi a b
   Pz :: UPi a b
