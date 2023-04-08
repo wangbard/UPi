@@ -73,11 +73,6 @@ toReadable' :: UPichia a b -> UPi a b
 toReadable' (FromUPia a) = toReadable a
 
 
--- fix
-testS :: UPichia a b -> UPi a b
-testS (FromUPia (FromUPi x)) = toUPichia (toUPia x)
-
-
 -- In the following section, I defined two new data type READ and R
 -- READ is a readable UPichia format 
 -- R is used to track the parens change from AssocT and AssocTI and therefore can be used to match any variable length of measurement
@@ -159,7 +154,7 @@ multiMeasure (PROD a b) (Prod c d) = [concat (multiMeasure a c ++ multiMeasure b
 multiMeasure M x = [[calQUBIT x]]
 multiMeasure _ _ = [[]]
 
--- parse READ into a 2-D matrix of READ
+-- parse READ into a 2-D list of READ
 toRow :: READ -> [[READ]]
 toRow (COMP a b) = 
     if hasASSOCT b
