@@ -16,8 +16,10 @@ import Ancilla (evalAncilla, noConsecutiveMProgram, singleQubitMProgram)
 
 -- ancilla.hs evaluates the number of ancilla used in a UPichia program based on 3 assumptions on the input
 -- 1. for every Id operator there is only one corresponding Qubit
--- 3. the input is in quantum circuit format, i.e. in a defined universal set of gates
--- 4. the first layer should not contain measure operator
+-- 2. the input is in quantum circuit format, i.e. in a defined universal set of gates
+-- 3. the first layer should not contain measure operator
+-- 4. the layer that is dedicated to the change of parens (namely layer that contains UPichia.assoct or UPichia.assocti) should not contain any gates. 
+--    This is to say that this layer should only contain a product of {UPichia.assoct, UPichia.assocti, Id}.
 
 -- the module is able to output:
 -- 1. evalAncilla : return the number of ancilla

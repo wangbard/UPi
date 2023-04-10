@@ -14,10 +14,13 @@ You can call three functions in ***Test.hs***:
 You can call the test examples by running **evalAncilla ex1** (ex1-ex21 are tests for ancilla). You can also new some tests by yourself to test potential drawback. Note that there are a few simple assumptions to make about the input:
 
 1. for every Id operator there is only one corresponding Qubit.
-2. the input is in the defined universal set of gates (Hadamard, Pauli X, Pauli Y, Pauli Z, S, T, Cnot, Toffoli) (This is a combination of some universal set of gates).
-3. the first layer should not contain measure operator (In practice, measurement in the first layer is also meaningless as we normally do know the initial state of the qubits).
-Note that in the layer that does not contains **UPichia.assoct** or **UPichia.assocti**, which is the layer that controls the change of parens, you don't need to follow rule 1. So the **Id** operator in this layer has type **UPichia a a** which can be mapped to arbitrary UPichia term.
+2. the input is in the defined universal set of gates (Hadamard, Pauli X, Pauli Y, Pauli Z, S, T, Cnot, Toffoli) (This is a combination of several universal set of gates).
+3. the first layer should not contain measure operator (In practice, measurement in the first layer is also meaningless as we normally do know the initial state of the 
+qubits).
+4. the layer that is dedicated to the change of parens (namely layer that contains **UPichia.assoct** or **UPichia.assocti**) should not contain any gates. This is to say that this layer should only contain a product of {**UPichia.assoct**, **UPichia.assocti**, **Id**}.
 
-Layer, in the above description, means a horizontal layer in the input UPichia program which is a just product of some operators without any composition.
+Note that in the layer that contains **UPichia.assoct** or **UPichia.assocti**, which is the layer that controls the change of parens, you don't need to follow rule 1. So the **Id** operator in this layer has type **UPichia a a** which can be mapped to arbitrary UPichia term.
+
+Layer, in the above description, means a horizontal layer in the input UPichia program which is a just monoidal product of operators without any composition.
 
 To take a closer look at what UPichia program does and what quantum information effects mean, please refer to [rkaarsgaard/UPi](https://github.com/rkaarsgaard/upi).
