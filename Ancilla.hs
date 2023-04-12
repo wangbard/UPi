@@ -238,4 +238,3 @@ noConsecutiveMProgram x = reverse (transpose  (multiColumns (transpose (toMatrix
 -- return a reabable UPichia program that expand a compound measurement (measurement on multiple Qubits) into measurements on single Qubit
 singleQubitMProgram :: UPichia a b -> [[READ]]
 singleQubitMProgram x = reverse (toMatrix (toReadable' x))
-

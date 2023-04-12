@@ -97,3 +97,109 @@ ex25 = (gate UPi.px **** gate UPi.s **** gate UPi.cnot) **** gate UPi.t >>>
        UPichia.assoct **** id >>>
        (id **** gate UPi.toffoli) **** measure >>>
        measure
+
+ex26 = gate UPi.toffoli >>> 
+       gate UPi.h **** measure
+
+ex27 =
+  gate UPi.h **** gate UPi.h **** gate UPi.h **** gate UPi.h >>>
+  measure **** id >>> ((id **** id) **** id) **** measure >>> measure **** id
+
+ex28 =
+  gate UPi.px **** gate UPi.h **** gate UPi.h >>>
+  UPichia.assoct >>>
+  measure **** gate UPi.cnot >>> UPichia.assocti >>> measure **** id **** id
+
+ex29 =
+  ((((gate UPi.h **** gate UPi.h) **** gate UPi.h) **** gate UPi.h) ****
+   gate UPi.h) >>>
+  measure **** id >>>
+  UPichia.assoct >>>
+  gate UPi.cnot **** gate UPi.h **** gate UPi.cnot >>>
+  UPichia.assoct >>> gate UPi.cnot **** measure
+
+ex30 =
+  gate UPi.h **** gate UPi.h ****
+  (gate UPi.cnot **** gate UPi.toffoli **** gate UPi.h) >>>
+  gate UPi.h **** gate UPi.h ****
+  (measure **** gate UPi.toffoli **** gate UPi.h)
+
+ex31 =
+  (gate UPi.h ****
+   (gate UPi.h **** (gate UPi.h **** (gate UPi.h **** gate UPi.h)))) >>>
+  UPichia.assocti >>>
+  UPichia.assocti >>>
+  measure **** (id **** id) >>>
+  id **** id **** id **** gate UPi.cnot >>>
+  measure **** id **** id **** gate UPi.cnot
+
+ex32 =
+  gate UPi.h **** gate UPi.h **** gate UPi.h **** gate UPi.h >>>
+  UPichia.assoct **** id >>> gate UPi.h **** measure **** gate UPi.py
+
+ex33 =
+  gate UPi.toffoli  **** gate UPi.cnot **** gate UPi.h ****
+  gate UPi.s ****
+  gate UPi.t ****
+  gate UPi.px ****
+  gate UPi.py ****
+  gate UPi.pz
+
+ex34 =
+  gate UPi.h >>>
+  gate UPi.s >>> gate UPi.t >>> gate UPi.px >>> gate UPi.py >>> gate UPi.pz
+
+ex35 =
+  gate UPi.h **** gate UPi.h **** gate UPi.h **** gate UPi.h >>>
+  gate UPi.cnot **** gate UPi.h **** gate UPi.s >>>
+  UPichia.assoct **** id >>> id **** measure **** id
+
+ex36 = gate UPi.h >>> measure >>> id >>> id >>> measure
+
+ex37 = gate UPi.cnot >>> measure **** id >>> id **** measure
+
+ex38 = gate UPi.h >>> measure >>> gate UPi.h >>> measure
+
+ex39 =
+  gate UPi.toffoli **** gate UPi.cnot **** gate UPi.h >>>
+  UPichia.assoct >>> gate UPi.toffoli **** measure
+
+ex40 =
+  gate UPi.h **** gate UPi.h **** gate UPi.h **** gate UPi.h >>>
+  UPichia.assoct >>> measure **** (id **** id)
+
+ex41 = gate UPi.cnot **** gate UPi.h **** gate UPi.h >>> measure **** id
+
+ex42 =
+  gate UPi.h **** gate UPi.h **** gate UPi.h **** gate UPi.cnot >>>
+  UPichia.assoct >>> gate UPi.cnot **** measure
+
+ex43 = gate UPi.h **** gate UPi.h >>> gate UPi.cnot >>> measure
+
+ex44 =
+  gate UPi.h **** gate UPi.h **** gate UPi.h **** gate UPi.h >>>
+  UPichia.assoct >>> measure >>> gate UPi.assocti >>> measure
+
+ex45 = gate UPi.h **** gate UPi.h >>> gate UPi.cnot >>> measure **** measure
+
+ex46 = gate UPi.toffoli >>> 
+       measure **** (id **** id)
+
+ex47 =
+  gate UPi.h **** gate UPi.h **** gate UPi.h **** gate UPi.h >>>
+  UPichia.assoct >>>
+  UPichia.assoct >>> UPichia.assocti >>> UPichia.assocti >>> measure
+
+ex48 =
+  gate UPi.px >>>
+  measure >>> gate UPi.py >>> measure >>> gate UPi.pz >>> measure
+
+ex49 =
+  gate UPi.cnot **** gate UPi.h **** gate UPi.h >>>
+  UPichia.assoct >>>
+  measure **** gate UPi.cnot >>> UPichia.assocti >>> measure **** id
+
+ex50 =
+  gate UPi.h **** gate UPi.h **** gate UPi.h **** gate UPi.h >>>
+  UPichia.assoct **** id >>> id **** (measure **** id) **** id >>>
+  id **** measure **** id
