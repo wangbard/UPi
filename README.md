@@ -11,7 +11,7 @@ You can call three functions in ***Test.hs***:
 
 3. **singleQubitMProgram** : return a reabable UPichia program that expand a compound measurement (measurement on multiple Qubits) into measurements on single Qubit
 
-You can call the test examples by running **evalAncilla ex1** (ex1-ex21 are tests for ancilla). You can also new some tests by yourself to test potential drawback. Note that there are a few simple assumptions to make about the input:
+You can call the test examples by running **evalAncilla ex1** (ex1-ex50 are tests for ancilla). You can also new some tests by yourself to test potential drawback. Note that there are a few simple assumptions to make about the input:
 
 1. for every Id operator there is only one corresponding Qubit.
 2. the input is in the defined universal set of gates (Hadamard, Pauli X, Pauli Y, Pauli Z, S, T, Cnot, Toffoli) (This is a combination of several universal set of gates).
