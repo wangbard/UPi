@@ -1,7 +1,9 @@
-To see the result of the code, run **ghci Test.hs**
+To see the result of the code, run 
+**ghci Test.hs**
 
 ***Ancilla.hs*** contains functions used to calculate ancilla qubits. 
 ***Test.hs*** contains a number of tests.
+***Example.hs*** contains a hand-written parse tree for a simple UPichia program.
 
 You can call three functions in ***Test.hs***:
 
@@ -23,4 +25,4 @@ Note that in the layer that contains **UPichia.assoct** or **UPichia.assocti**, 
 
 Layer, in the above description, means a horizontal layer in the input UPichia program which is a just monoidal product of operators without any composition.
 
-To take a closer look at what UPichia program does and what quantum information effects mean, please refer to [rkaarsgaard/UPi](https://github.com/rkaarsgaard/upi).
+To take a closer look at how UPichia is defined and what quantum information effects refers to, please refer to [rkaarsgaard/UPi](https://github.com/rkaarsgaard/upi).

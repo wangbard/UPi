@@ -14,21 +14,13 @@ import UPichia
 gate :: UPi a b -> UPichia a b
 gate f = FromUPia (FromUPi (UPi.unitp >>> f >>> UPi.unitti))
 
--- An example circuit with measurement (corresponding to examples/ex1.pdf).
-ex1 = (id **** gate UPi.h **** id) >>> 
-      (gate UPi.cnot **** id) >>> 
-      (id **** gate UPi.h **** id) >>>
-      UPichia.assoct >>>
-      (id **** gate UPi.cnot) >>> 
-      UPichia.assocti >>>
-      (id **** id **** gate UPi.pz) >>> 
-      (id **** measure **** measure)
-
 
 -- a hand written parse tree for the following simple UPichia program
 ex3 = gate UPi.h >>> measure 
 
+-- lift to UPia
 {-    (Hadamard >>> UnitTI) >>> (A >>> AssocT)
+
 
 AssocPI
 (UnitP >>> Hadamard >>> UnitTI) ++++ Id
@@ -153,6 +145,8 @@ A ++++ Id
 UnitP >>> AssocT
 -}
 
+
+-- lift to UPichia
 {-    
       Hadamard >>> 
       clone(qbit) >>>
