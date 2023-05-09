@@ -2,9 +2,9 @@ To see the result of the code, run
 
 **ghci Test.hs**
 
-***Ancilla.hs*** contains functions used to calculate ancilla qubits. 
-***Test.hs*** contains a number of tests.
-***Example.hs*** contains a hand-written parse tree for a simple UPichia program.
+***Ancilla.hs*** contains functions used to calculate ancilla qubits.  
+***Test.hs*** contains a number of tests.  
+***Example.hs*** contains a hand-written parse tree for a simple UPichia program.  
 
 You can call three functions in ***Test.hs***:
 
